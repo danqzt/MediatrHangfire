@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.MediatR;
+using MediatR;
 using Microsoft.Extensions.Hosting;
 using Sales;
 using Shipping;
@@ -19,10 +20,11 @@ namespace Worker
                 {
                     services.AddSales();
                     services.AddShipping();
+                    services.AddMediatR(typeof(Program).Assembly);
 
                     services.AddHangfire(configuration =>
                     {
-                        configuration.UseSqlServerStorage("Server=localhost\\SQLEXPRESS;Database=Hangfire;Trusted_Connection=True;");
+                        configuration.UseSqlServerStorage("Server=localhost,1433;Database=OrdersDb;User Id=sa;Password=Password1!");
                         configuration.UseMediatR();
                     });
 

@@ -21,7 +21,7 @@ namespace Sales
             _mediator = mediator;
         }
 
-        [HttpPost("/sales/orders/{orderId:Guid}")]
+        [HttpGet("/sales/orders/{orderId:Guid}")]
         public IActionResult Action([FromRoute] Guid orderId)
         {
             _mediator.Enqueue("Place Order", new PlaceOrder
@@ -30,14 +30,6 @@ namespace Sales
             });
 
             return NoContent();
-        }
-    }
-
-    public class PlaceOrderHandler : IRequestHandler<PlaceOrder>
-    {
-        public Task<Unit> Handle(PlaceOrder request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
         }
     }
 }
